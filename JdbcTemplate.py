@@ -19,4 +19,29 @@ class JdbcTemplate(JdbcAccessor):
     def update(self, sql: str) -> int:
         pass
     def batchUpdate(self, *sql: str) -> list:
-        pass
+        class BatchUpdateStatementCallback:
+            def __init__(self):
+                self.cur = ""
+            
+            def doInStatement(self, cursor):
+                rowAffected = [0] * len(sql)
+                # if JdbcUtils.supportBatchUpdates...
+                # ...
+                # ...
+                # else
+                for i, cur in enumerate(sql):
+                    self.cur = cur
+                    cursor.execute(self.cur)
+                    results = cursor.fetchall()
+                    if results:
+                        rowAffected[i] = len(results)
+                    else:
+                        # throw new InvalidDataAccessApiUsageException("Invalid batch SQL statement: " + cur);
+                        return None
+                return rowAffected
+            
+            def _appendSql(self,sql,stmt):
+                pass
+            def getSql(self):
+                return self.cur
+        return self._execute(BatchUpdateStatementCallback(), True)

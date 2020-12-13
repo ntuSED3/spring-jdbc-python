@@ -1,0 +1,2 @@
+class JdbcAccessor:
+    pass

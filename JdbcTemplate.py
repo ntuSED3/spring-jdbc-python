@@ -1,3 +1,4 @@
+from JdbcAccessor import JdbcAccessor
 # interface
 # Maybe we should use abc.ABCMeta and abc.abstractmethod to prevent us from instantiating this class
 class StatementCallback:

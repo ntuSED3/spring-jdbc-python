@@ -1,4 +1,5 @@
 from JdbcAccessor import JdbcAccessor
+import sqlite3
 # interface
 # Maybe we should use abc.ABCMeta and abc.abstractmethod to prevent us from instantiating this class
 class StatementCallback:
@@ -12,7 +13,23 @@ class JdbcTemplate(JdbcAccessor):
     def __init__(self):
         super().__init__()
     def _execute(self, action: StatementCallback, closeResources: bool):
-        pass
+        assert action is not None
+        #TODO: get connection somewhere
+        con = sqlite3.connect('db')
+        cursor = con.cursor()
+        try:
+            result = action.doInStatement(cursor)
+            return result
+        except Exception:
+            # from original JdbcTemplate
+            # Release Connection early, to avoid potential connection pool deadlock
+			# in the case when the exception translator hasn't been initialized yet.
+            cursor.close()
+            #TODO: exception translation
+        finally:
+            if closeResources:
+                #TODO: close connection by JdbcUtils(exception handling)
+                cursor.close()
 
     def execute(self, sql: str):
         class ExecuteStatementCallback(StatementCallback):

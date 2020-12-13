@@ -1,3 +1,12 @@
+# interface
+# Maybe we should use abc.ABCMeta and abc.abstractmethod to prevent us from instantiating this class
+class StatementCallback:
+    def doInStatement(self, cursor):
+        pass
+    # ignore SqlProvider interface, I think it is useless
+    def getSql(self) -> str:
+        pass
+
 class JdbcTemplate(JdbcAccessor):
     def __init__(self):
         super().__init__()
@@ -5,7 +14,7 @@ class JdbcTemplate(JdbcAccessor):
         pass
 
     def execute(self, sql: str):
-        class ExecuteStatementCallback():
+        class ExecuteStatementCallback(StatementCallback):
             def doInStatement(self, cursor):
                 return cursor.execute(sql)
 
@@ -19,7 +28,7 @@ class JdbcTemplate(JdbcAccessor):
     def update(self, sql: str) -> int:
         pass
     def batchUpdate(self, *sql: str) -> list:
-        class BatchUpdateStatementCallback:
+        class BatchUpdateStatementCallback(StatementCallback):
             def __init__(self):
                 self.cur = ""
             

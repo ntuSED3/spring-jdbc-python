@@ -42,7 +42,16 @@ class JdbcTemplate(JdbcAccessor):
         return self._execute(ExecuteStatementCallback(), True)
 
     def query(self, sql: str) -> list:
-        pass
+        class QueryStatementCallback(StatementCallback):
+            def doInStatement(self, cursor):
+                rs = list()
+                try:
+                    rs = cursor.execute(sql)
+                    return rs
+            def getSql(self):
+                return sql
+        return self._execute(QueryStatementCallback(), True)
+
     def update(self, sql: str) -> int:
         pass
     def batchUpdate(self, *sql: str) -> list:

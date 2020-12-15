@@ -59,11 +59,12 @@ class JdbcTemplate(JdbcAccessor):
 
     def update(self, sql: str) -> int:
         assert sql is not None, "SQL must not be null"
-        class UpdateStatementCallback(StatementCallback, SqlProvider):
+        class UpdateStatementCallback(StatementCallback):
             def __init__(self):
                 self.cursor = ""
             def doInStatement(self, cursor) -> int:
                 self.cursor = cursor
+                cursor.execute(sql)
                 rows = self.cursor.rowcount 
                 return rows
             def getSql(self) -> str:
@@ -81,15 +82,19 @@ class JdbcTemplate(JdbcAccessor):
                 # ...
                 # ...
                 # else
+                
                 for i, cur in enumerate(sql):
-                    print(cur)
+                    print(sql[i])
+                    print(i,cur)
                     self.cur = cur
                     cursor.execute(self.cur)
-                    results = cursor.fetchall()
+                    results = cursor.rowcount 
+                    
                     if results:
-                        rowAffected[i] = len(results)
+                        rowAffected[i] = results
                     else:
                         # throw new InvalidDataAccessApiUsageException("Invalid batch SQL statement: " + cur);
+                        
                         return None
                 return rowAffected
             

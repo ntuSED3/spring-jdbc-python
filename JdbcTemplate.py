@@ -53,7 +53,18 @@ class JdbcTemplate(JdbcAccessor):
         return self._execute(QueryStatementCallback(), True)
 
     def update(self, sql: str) -> int:
-        pass
+        assert sql is not None, "SQL must not be null"
+        class UpdateStatementCallback(StatementCallback, SqlProvider):
+            def __init__(self):
+                self.cursor = ""
+            def doInStatement(self, cursor) -> int:
+                self.cursor = cursor
+                rows = self.cursor.rowcount 
+                return rows
+            def getSql(self) -> str:
+                return sql
+        return self._execute(UpdateStatementCallback(), True)
+        
     def batchUpdate(self, *sql: str) -> list:
         class BatchUpdateStatementCallback(StatementCallback):
             def __init__(self):

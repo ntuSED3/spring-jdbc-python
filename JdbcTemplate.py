@@ -48,6 +48,8 @@ class JdbcTemplate(JdbcAccessor):
                 try:
                     rs = cursor.execute(sql)
                     return rs
+                except:
+                    pass
             def getSql(self):
                 return sql
         return self._execute(QueryStatementCallback(), True)

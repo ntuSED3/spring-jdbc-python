@@ -15,10 +15,12 @@ class JdbcTemplate(JdbcAccessor):
     def _execute(self, action: StatementCallback, closeResources: bool):
         assert action is not None
         #TODO: get connection somewhere
-        con = sqlite3.connect('db')
+        con = sqlite3.connect('test.db', isolation_level = None)
         cursor = con.cursor()
         try:
             result = action.doInStatement(cursor)
+            # TODO find another place to commit
+            # con.commit()
             return result
         except Exception:
             # from original JdbcTemplate
@@ -34,7 +36,8 @@ class JdbcTemplate(JdbcAccessor):
     def execute(self, sql: str):
         class ExecuteStatementCallback(StatementCallback):
             def doInStatement(self, cursor):
-                return cursor.execute(sql)
+                cursor.execute(sql)
+                return [row for row in cursor]
 
             def getSql(self):
                 return sql
@@ -79,6 +82,7 @@ class JdbcTemplate(JdbcAccessor):
                 # ...
                 # else
                 for i, cur in enumerate(sql):
+                    print(cur)
                     self.cur = cur
                     cursor.execute(self.cur)
                     results = cursor.fetchall()

@@ -1,6 +1,12 @@
-import JdbcTemplate
+from JdbcTemplate import JdbcTemplate
+from DataSource import DataSource
+import sqlite3
 
-jdbctemplate = JdbcTemplate.JdbcTemplate()
+class SqliteDataSource(DataSource):
+      def getConnection(self, username=None, password=None):
+            return sqlite3.connect("test.db")
+
+jdbctemplate = JdbcTemplate(SqliteDataSource())
 jdbctemplate.execute('''CREATE TABLE COMPANY
        (ID INT PRIMARY KEY     NOT NULL,
        NAME           TEXT    NOT NULL,
@@ -15,5 +21,4 @@ jdbctemplate.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
 #ret = jdbctemplate.update("UPDATE COMPANY SET SALARY = 25000.00 where ID=1")
 ret = jdbctemplate.batchUpdate("UPDATE COMPANY set SALARY = 25000.00 where ID=1", 
                      "UPDATE COMPANY set SALARY = 30000.00 where ID=2")
-#ret = jdbctemplate.execute('''SELECT * FROM COMPANY;''')
-print(ret)
+print(jdbctemplate.query("SELECT * FROM COMPANY"))

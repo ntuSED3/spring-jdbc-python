@@ -1,6 +1,6 @@
-class DataSource:
-    def getConnection():
-        pass
+import abc
+class DataSource(abc.ABC):
+    @abc.abstractmethod
+    def getConnection(self,username=None, password=None):
+        raise NotImplementedError
 
-    def getConnection(username: str, password: str):
-        pass

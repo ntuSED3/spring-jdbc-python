@@ -66,7 +66,7 @@ class LazyConnectionInvocationHandler(object):
                   raise Exception("Illegal operation: connection is closed")
 
       target = self.getTargetConnection(method)
-      
+      attr = object.__getattribute__(target, method)
 
       def newAttr(*args, **kwargs):  # 包装
          res = attr(*args, **kwargs)
@@ -88,4 +88,4 @@ class LazyConnectionInvocationHandler(object):
             super().obtainTargetDataSource().getConnection()
       
       # TODO: set other connection metadata
-      attr = object.__getattribute__(target, method)
+     

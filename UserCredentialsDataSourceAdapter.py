@@ -9,7 +9,8 @@ class UserCredentialsDataSourceAdapter (DelegatingDataSource):
     _catalog = None
     _schema = None
 
-    def __init__(self):
+    def __init__(self, dataSource):
+        super().setTargetDataSource(dataSource)
         pass
 
     def setUsername(self, username: str):
@@ -49,8 +50,8 @@ class UserCredentialsDataSourceAdapter (DelegatingDataSource):
         return doGetConnection(username, password)
 
     def doGetConnection(self, username: str, password: str):
-        assert self.getTargetDataSource() is not None
+        assert super().getTargetDataSource() is not None
         if (username is not None):
-            return self.getTargetDataSource().getConnection(username, password)
+            return super().getTargetDataSource().getConnection(username, password)
         else:
-            return self.getTargetDataSource().getConnection()
+            return super().getTargetDataSource().getConnection()

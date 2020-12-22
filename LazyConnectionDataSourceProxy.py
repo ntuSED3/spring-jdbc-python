@@ -58,7 +58,7 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
 
          self.closed = False
 
-      def __getattribute__(self, method):
+      def __getattr__(self, method):
          
          # TODO: fill up possible method name 
          if method == "equals":
@@ -77,7 +77,7 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
                      raise Exception("Illegal operation: connection is closed")
 
          target = self.getTargetConnection(method)
-         attr = object.__getattribute__(target, method)
+         attr = target.__getattribute__(method)
 
          def newAttr(*args, **kwargs):  # 包装
             res = attr(*args, **kwargs)
@@ -89,14 +89,14 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
          return (self.target != None)
 
       def getTargetConnection(self, method):
-         target = object.__getattribute__(self, "target")
+         target = self.target
          if target == None:
             print("Connecting to database for operation '" + method + "'")
             # Fetch physical Connection from DataSource.
             if self.username and self.password:
-               super().obtainTargetDataSource().getConnection(self.username, self.password)
+               self.target = self.outer_instance.obtainTargetDataSource().getConnection(self.username, self.password)
             else:
-               super().obtainTargetDataSource().getConnection()
-         
+               self.target = self.outer_instance.obtainTargetDataSource().getConnection()
+         return self.target
          # TODO: set other connection metadata
      

@@ -1,13 +1,12 @@
 import pandas as pd
 from embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
-
+from embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
 
 if __name__ == "__main__":
-    factory = EmbeddedDatabaseFactory()
-    factory.setDatabaseType("H2")
-    ds = factory.getDatabase()
+    builder = EmbeddedDatabaseBuilder()
+    builder.setType("H2")
+    ds = builder.build()
     conn = ds.getConnection()
-
     cur = conn.cursor()
     cur.execute("""DROP TABLE IF EXISTS customers;""")
     cur.execute("""CREATE TABLE customers(

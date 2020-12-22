@@ -3,7 +3,7 @@ from UserCredentialsDataSourceAdapter import UserCredentialsDataSourceAdapter
 import threading
 import time
 
-ucdsa = UserCredentialsDataSourceAdapter()
+ucdsa = UserCredentialsDataSourceAdapter(None)
 
 def handleReq(username, password):
     ucdsa.setCredentialsForCurrentThread(username, password)

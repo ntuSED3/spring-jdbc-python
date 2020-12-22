@@ -2,7 +2,7 @@ import abc
 from DataSource import DataSource
 
 
-class AbstractDriverBasedDataSource(abc.ABC, DataSource):
+class AbstractDriverBasedDataSource(DataSource):
     def __init__(self):
         self.url = None
         self.username = None

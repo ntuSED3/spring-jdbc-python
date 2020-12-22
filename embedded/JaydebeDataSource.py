@@ -1,10 +1,9 @@
 import jaydebeapi
-from DataSource import DataSource
+from AbstractDriverBasedDataSource import AbstractDriverBasedDataSource
 
-class JaydebeDataSource(DataSource):
+class JaydebeDataSource(AbstractDriverBasedDataSource):
     """	
     SimpleDriverDataSource
-    AbstractDriverDataSource
     """
     def __init__(self):
         self.url = None
@@ -13,9 +12,7 @@ class JaydebeDataSource(DataSource):
         self.username = None
         self.password = None
 
-    def getConnection(self, username=None, password=None):
-        if username is None: username = self.username
-        if password is None: password = self.password
+    def getConnectionFromDriver(self, username=None, password=None):
         return jaydebeapi.connect(
                 self.jclassname,
                 self.url,

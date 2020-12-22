@@ -1,13 +1,15 @@
 import uuid
 from .EmbeddedDatabaseConfigurerFactory import EmbeddedDatabaseConfigurerFactory
 from .JaydebeDataSourceFactory import JaydebeDataSourceFactory
+from .EmbeddedDatabaseType import EmbeddedDatabaseType
 
 
 class EmbeddedDatabaseFactory():
     def __init__(self):
         self.databaseName = "testdb"
         self.dataSource = None
-        self.databaseConfigurer = EmbeddedDatabaseConfigurerFactory.getConfigurer("HSQL")
+        self.databaseConfigurer = None
+
         self.dataSourceFactory = JaydebeDataSourceFactory()
         self.generateUniqueDatabaseName = False
 
@@ -30,6 +32,10 @@ class EmbeddedDatabaseFactory():
     def _initDatabase(self):
         if self.generateUniqueDatabaseName:
             self.setDatabaseName(str(uuid.uuid1()))
+
+        if self.databaseConfigurer is None:
+            self.databaseConfigurer = EmbeddedDatabaseConfigurerFactory \
+                                       .getConfigurer(EmbeddedDatabaseType.HSQL)
 
         self.databaseConfigurer.configure(
                 self.dataSourceFactory.getConnectionProperties(),

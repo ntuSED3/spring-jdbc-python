@@ -1,13 +1,15 @@
 from .HsqlConfigurer import HsqlConfigurer
 from .H2Configurer import H2Configurer
+from .DerbyConfigurer import DerbyConfigurer
+from .EmbeddedDatabaseType import EmbeddedDatabaseType
 
 class EmbeddedDatabaseConfigurerFactory():
-    def getConfigurer(name):
-        if name == "HSQL":
+    def getConfigurer(edbType):
+        if edbType == EmbeddedDatabaseType.HSQL:
             return HsqlConfigurer()
-	#elif name == "Derby":
-	#    return DerbyConfigurer()
-        elif name == "H2":
+        elif edbType == EmbeddedDatabaseType.DERBY:
+            return DerbyConfigurer()
+        elif edbType == EmbeddedDatabaseType.H2:
             return H2Configurer()
 
         else:

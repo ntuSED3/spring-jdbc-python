@@ -31,7 +31,7 @@ class JdbcTemplate(JdbcAccessor):
                 #TODO: close connection by JdbcUtils(exception handling)
                 con.close()
 
-    def execute(self, sql: str):
+    def execute(self, sql: str, closeResource=True):
         class ExecuteStatementCallback(StatementCallback):
             def doInStatement(self, conn):
                 cursor = conn.cursor()
@@ -42,9 +42,9 @@ class JdbcTemplate(JdbcAccessor):
             def getSql(self):
                 return sql
 
-        return self._execute(ExecuteStatementCallback(), True)
+        return self._execute(ExecuteStatementCallback(), closeResource)
 
-    def query(self, sql: str) -> list:
+    def query(self, sql: str, closeResource=True) -> list:
         class QueryStatementCallback(StatementCallback):
             def doInStatement(self, conn):
                 try:
@@ -55,9 +55,9 @@ class JdbcTemplate(JdbcAccessor):
                     pass
             def getSql(self):
                 return sql
-        return self._execute(QueryStatementCallback(), True)
+        return self._execute(QueryStatementCallback(), closeResource)
 
-    def update(self, sql: str) -> int:
+    def update(self, sql: str, closeResource=True) -> int:
         assert sql is not None, "SQL must not be null"
         class UpdateStatementCallback(StatementCallback):
             def doInStatement(self, conn) -> int:
@@ -67,9 +67,9 @@ class JdbcTemplate(JdbcAccessor):
                 return self.cursor.rowcount
             def getSql(self) -> str:
                 return sql
-        return self._execute(UpdateStatementCallback(), True)
+        return self._execute(UpdateStatementCallback(), closeResource)
         
-    def batchUpdate(self, *sql: str) -> list:
+    def batchUpdate(self, *sql: str, closeResource=True) -> list:
         class BatchUpdateStatementCallback(StatementCallback):            
             def doInStatement(self, conn):
                 cursor = conn.cursor()
@@ -96,4 +96,4 @@ class JdbcTemplate(JdbcAccessor):
                 pass
             def getSql(self):
                 return self.cur
-        return self._execute(BatchUpdateStatementCallback(), True)
+        return self._execute(BatchUpdateStatementCallback(), closeResource)

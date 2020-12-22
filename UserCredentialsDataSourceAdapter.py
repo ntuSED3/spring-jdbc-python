@@ -49,8 +49,8 @@ class UserCredentialsDataSourceAdapter (DelegatingDataSource):
         return doGetConnection(username, password)
 
     def doGetConnection(self, username: str, password: str):
-        assert DelegatingDataSource.getTargetDataSource() is not None
+        assert self.getTargetDataSource() is not None
         if (username is not None):
-            return DelegatingDataSource.getTargetDataSource().getConnection(username, password)
+            return self.getTargetDataSource().getConnection(username, password)
         else:
-            return DelegatingDataSource.getTargetDataSource().getConnection()
+            return self.getTargetDataSource().getConnection()

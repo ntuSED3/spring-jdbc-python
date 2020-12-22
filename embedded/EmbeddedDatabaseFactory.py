@@ -24,6 +24,9 @@ class EmbeddedDatabaseFactory():
     def setGenerateUniqueDatabaseName(self, flag: bool):
         self.generateUniqueDatabaseName = flag
 
+    def setDatabaseType(self, embedded_type):
+        self.databaseConfigurer = EmbeddedDatabaseConfigurerFactory.getConfigurer(embedded_type)
+
     def _initDatabase(self):
         if self.generateUniqueDatabaseName:
             self.setDatabaseName(str(uuid.uuid1()))

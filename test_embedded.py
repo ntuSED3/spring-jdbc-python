@@ -3,8 +3,9 @@ from embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
 
 
 if __name__ == "__main__":
-
-    ds = EmbeddedDatabaseFactory().getDatabase()
+    factory = EmbeddedDatabaseFactory()
+    factory.setDatabaseType("H2")
+    ds = factory.getDatabase()
     conn = ds.getConnection()
 
     cur = conn.cursor()

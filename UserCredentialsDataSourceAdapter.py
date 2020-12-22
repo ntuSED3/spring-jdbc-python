@@ -37,13 +37,11 @@ class UserCredentialsDataSourceAdapter (DelegatingDataSource):
                 if JdbcUserCredentials.username is not None and JdbcUserCredentials.password is not None \ 
                 else doGetConnection(self._username, self._password)
 
-        if (self._catalog is not None) {
+        if (self._catalog is not None):
             con.setCatalog(self._catalog)
-        }
 
-        if (self._schema is not None) {
+        if (self._schema is not None):
             con.setSchema(self._schema)
-        }
 
         return con
 

@@ -6,8 +6,7 @@ class JaydebeDataSource(AbstractDriverBasedDataSource):
     SimpleDriverDataSource
     """
     def __init__(self):
-        self.username = None
-        self.password = None
+        super().__init__()
         self.jar = None
         self.jclassname = None
 
@@ -18,17 +17,12 @@ class JaydebeDataSource(AbstractDriverBasedDataSource):
                 [username, password],
                 self.jar)
 
-    def setUrl(self, url):
-        self.url = url
-	
     def setJarPath(self, jar):
         self.jar = jar
+    def getJarPath(self):
+        return self.jar
 	
     def setJClassName(self, name):
         self.jclassname = name
-
-    def setUserName(self, username):
-        self.username = username
-
-    def setPassword(self, password):
-        self.password = password
+    def getJClassName(self):
+        return self.jclassname

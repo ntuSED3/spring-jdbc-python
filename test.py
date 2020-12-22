@@ -1,12 +1,13 @@
 from JdbcTemplate import JdbcTemplate
 from DataSource import DataSource
+from LazyConnectionDataSourceProxy import LazyConnectionDataSourceProxy
 import sqlite3
 
 class SqliteDataSource(DataSource):
       def getConnection(self, username=None, password=None):
             return sqlite3.connect("test.db")
 
-jdbctemplate = JdbcTemplate(SqliteDataSource())
+jdbctemplate = JdbcTemplate(LazyConnectionDataSourceProxy(SqliteDataSource()))
 jdbctemplate.execute('''CREATE TABLE COMPANY
        (ID INT PRIMARY KEY     NOT NULL,
        NAME           TEXT    NOT NULL,

@@ -14,16 +14,16 @@ class DelegatingDataSource(DataSource):
         return self._targetDataSource
 
     def obtainTargetDataSource(self) -> DataSource:
-        resDataSource = getTargetDataSource()
+        resDataSource = self.getTargetDataSource()
         assert resDataSource is not None
         return resDataSource
 
     def afterPropertiesSet(self):
-        if (getTargetDataSource() is None):
+        if (self.getTargetDataSource() is None):
             raise NameError("Property 'targetDataSource' is required")
 
-    def getConnection():
-        return obtainTargetDataSource().getConnection()
+    def getConnection(self):
+        return self.obtainTargetDataSource().getConnection()
 
-    def getConnection(username: str, password: str):
-        return obtainTargetDataSource().getConnection(username, password)
+    def getConnection(self, username: str, password: str):
+        return self.obtainTargetDataSource().getConnection(username, password)

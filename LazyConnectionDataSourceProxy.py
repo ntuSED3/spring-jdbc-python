@@ -1,17 +1,23 @@
-import DelegatingDataSource
+from DelegatingDataSource import DelegatingDataSource
 class LazyConnectionDataSourceProxy(DelegatingDataSource):
    def __init__(self, targetDataSource = None):
       if targetDataSource != None:
          super().setTargetDataSource(targetDataSource)
-         afterPropertiesSet()
+         super().afterPropertiesSet()
          self.defaultAutoCommit = None
          self.defaultTransactionIsolation = None
    
-   def DefaultAutoCommit(self, defaultAutoCommit):
+   def setDefaultAutoCommit(self, defaultAutoCommit):
       self.defaultAutoCommit = defaultAutoCommit
+   
+   def DefaultAutoCommit(self):
+      return self.defaultAutoCommit
 
-   def etDefaultTransactionIsolation(self, defaultTransactionIsolation):
+   def setDefaultTransactionIsolation(self, defaultTransactionIsolation):
       self.defaultTransactionIsolation = defaultTransactionIsolation
+
+   def DefaultTransactionIsolation(self):
+      return self.defaultTransactionIsolation
 
    def afterPropertiesSet(self):
       super.afterPropertiesSet()
@@ -38,14 +44,15 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
          self.defaultTransactionIsolation = False
 
    def getConnection(self):
-      return LazyConnectionDataSourceProxy(  )
+      return LazyConnectionDataSourceProxy.LazyConnectionInvocationHandler(self)
 
    class LazyConnectionInvocationHandler(object):
       
-      def __init__(self, username = None, password = None):
+      def __init__(self, outer_instance, username = None, password = None):
+         self.outer_instance = outer_instance
          self.target = None
-         self.autoCommit = defaultAutoCommit()
-         self.transactionIsolation = defaultTransactionIsolation()
+         self.autoCommit = outer_instance.DefaultAutoCommit()
+         self.transactionIsolation = outer_instance.DefaultTransactionIsolation()
          self.username = username
          self.password = password
 

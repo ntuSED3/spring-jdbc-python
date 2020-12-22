@@ -34,7 +34,7 @@ class UserCredentialsDataSourceAdapter (DelegatingDataSource):
 
     def getConnection(self):
         con = doGetConnection(self.JdbcUserCredentials.username, self.JdbcUserCredentials.password) \
-                if JdbcUserCredentials.username is not None and JdbcUserCredentials.password is not None \ 
+                if JdbcUserCredentials.username is not None and JdbcUserCredentials.password is not None \
                 else doGetConnection(self._username, self._password)
 
         if (self._catalog is not None):

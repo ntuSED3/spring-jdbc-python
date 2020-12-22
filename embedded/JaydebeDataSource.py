@@ -6,11 +6,10 @@ class JaydebeDataSource(AbstractDriverBasedDataSource):
     SimpleDriverDataSource
     """
     def __init__(self):
-        self.url = None
-        self.jar = None
-        self.jclassname = None
         self.username = None
         self.password = None
+        self.jar = None
+        self.jclassname = None
 
     def getConnectionFromDriver(self, username=None, password=None):
         return jaydebeapi.connect(

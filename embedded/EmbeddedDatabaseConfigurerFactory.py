@@ -6,11 +6,11 @@ from .EmbeddedDatabaseType import EmbeddedDatabaseType
 class EmbeddedDatabaseConfigurerFactory():
     def getConfigurer(edbType):
         if edbType == EmbeddedDatabaseType.HSQL:
-            return HsqlConfigurer()
+            return HsqlConfigurer.getInstance()
         elif edbType == EmbeddedDatabaseType.DERBY:
-            return DerbyConfigurer()
+            return DerbyConfigurer.getInstance()
         elif edbType == EmbeddedDatabaseType.H2:
-            return H2Configurer()
+            return H2Configurer.getInstance()
 
         else:
             raise NotImplementedError

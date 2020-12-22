@@ -3,7 +3,7 @@ from DataSourceLookup import DataSourceLookup
 class MapDataSourceLookup(DataSourceLookup):
     def __init__(self,dataSources=None,dataSourceName=None,dataSource=None):
         self.dataSources = {}
-        if dataSource:
+        if dataSources:
             self.setDataSources(dataSources)
         if dataSourceName and dataSource:
             assert dataSources==None, "DataSources must be None when both dataSourceName and dataSource are not None."

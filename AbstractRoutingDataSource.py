@@ -1,6 +1,6 @@
 import abc
 from DataSource import DataSource
-class AbstractRoutingDataSource(abc.ABC,DataSource):
+class AbstractRoutingDataSource(DataSource):
     def __init__(self):
         # Map<Object, Object>
         self.targetDataSources = None
@@ -53,8 +53,7 @@ class AbstractRoutingDataSource(abc.ABC,DataSource):
         if isinstance(dataSource,DataSource):
             return dataSource
         elif isinstance(dataSource, str):
-            # return self.dataSourceLookup.getDataSource(dataSource)
-            pass
+            return self.dataSourceLookup.getDataSource(dataSource)
         else:
             # throw new IllegalArgumentException(
 			#		"Illegal data source value - only [javax.sql.DataSource] and String supported: " + dataSource);
@@ -85,4 +84,4 @@ class AbstractRoutingDataSource(abc.ABC,DataSource):
     
     @abc.abstractmethod
     def determineCurrentLookupKey(self):
-        pass
+        raise NotImplementedError

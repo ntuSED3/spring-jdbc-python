@@ -23,15 +23,16 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
                try:
                   self.checkDefaultConnectionProperties(con)
          except: # TODO: this should be some kind of SQLException
-            print("Could not retrieve default auto-commit and transaction isolation settings", ex)
+            print("Could not retrieve default auto-commit and transaction isolation settings")
    
    # TODO: Make this syncronized: http://theorangeduck.com/page/synchronized-python
    def checkDefaultConnectionProperties(self, con):
+      # defaultAutoCommit and defaultTransactionIsolation should be con.isolation_level for sqlite3
       if self.defaultAutoCommit == None:
-         self.defaultAutoCommit = con.getAutoCommit
+         self.defaultAutoCommit = False
 
       if self.defaultTransactionIsolation == None:
-         self.defaultTransactionIsolation = con.getTransactionIsolation
+         self.defaultTransactionIsolation = False
 
    def getConnection(self):
       return LazyConnectionDataSourceProxy(  )

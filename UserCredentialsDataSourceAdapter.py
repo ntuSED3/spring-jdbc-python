@@ -25,8 +25,8 @@ class UserCredentialsDataSourceAdapter (DelegatingDataSource):
         self._schema = schema
 
     def setCredentialsForCurrentThread(self, username: str, password: str):
-        self.JdbcUserCredentials.username = self._username
-        self.JdbcUserCredentials.password = self._password
+        self.JdbcUserCredentials.username = username
+        self.JdbcUserCredentials.password = password
 
     def removeCredentialsFromCurrentThread(self):
         self.JdbcUserCredentials.username = None

@@ -22,7 +22,10 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
             if con:
                try:
                   self.checkDefaultConnectionProperties(con)
-         except: # TODO: this should be some kind of SQLException
+               except:
+                  pass
+         except:
+            # TODO: this should be some kind of SQLException
             print("Could not retrieve default auto-commit and transaction isolation settings")
    
    # TODO: Make this syncronized: http://theorangeduck.com/page/synchronized-python

@@ -20,7 +20,8 @@ class JdbcTemplate(JdbcAccessor):
         try:
             result = action.doInStatement(con)
             return result
-        except Exception:
+        except Exception as e:
+            print(e)
             # from original JdbcTemplate
             # Release Connection early, to avoid potential connection pool deadlock
 			# in the case when the exception translator hasn't been initialized yet.

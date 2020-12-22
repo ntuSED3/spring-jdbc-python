@@ -6,6 +6,7 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
          super().afterPropertiesSet()
          self.defaultAutoCommit = None
          self.defaultTransactionIsolation = None
+         self.handler = None
    
    def setDefaultAutoCommit(self, defaultAutoCommit):
       self.defaultAutoCommit = defaultAutoCommit
@@ -44,7 +45,9 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
          self.defaultTransactionIsolation = False
 
    def getConnection(self):
-      return LazyConnectionDataSourceProxy.LazyConnectionInvocationHandler(self)
+      if self.handler == None or self.handler.closed == True:
+         self.handler = LazyConnectionDataSourceProxy.LazyConnectionInvocationHandler(self)
+      return self.handler
 
    class LazyConnectionInvocationHandler(object):
       
@@ -59,12 +62,14 @@ class LazyConnectionDataSourceProxy(DelegatingDataSource):
          self.closed = False
 
       def __getattr__(self, method):
-         
+
          # TODO: fill up possible method name 
          if method == "equals":
             pass
          elif method == "hashCode":
             pass
+         elif method == "close":
+            self.closed = True
 
          if not self.hasTargetConnection():
                #TODO: fill up possible method name 

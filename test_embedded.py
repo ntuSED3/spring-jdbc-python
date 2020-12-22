@@ -1,10 +1,11 @@
 import pandas as pd
 from embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
 from embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
+from embedded.EmbeddedDatabaseType import EmbeddedDatabaseType
 
 if __name__ == "__main__":
     builder = EmbeddedDatabaseBuilder()
-    builder.setType("H2")
+    builder.setType(EmbeddedDatabaseType.H2)
     ds = builder.build()
     conn = ds.getConnection()
     cur = conn.cursor()

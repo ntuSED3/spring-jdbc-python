@@ -7,7 +7,7 @@ class DelegatingDataSource(DataSource):
         if (targetDataSource is not None):
             setTargetDataSource(targetDataSource)
     
-    def setTargetDataSource(self, targetDataSource: DataSource)
+    def setTargetDataSource(self, targetDataSource: DataSource):
         self._targetDataSource = targetDataSource
 
     def getTargetDataSource(self) -> DataSource:
@@ -19,9 +19,8 @@ class DelegatingDataSource(DataSource):
         return resDataSource
 
     def afterPropertiesSet(self):
-        if (getTargetDataSource() is None) {
+        if (getTargetDataSource() is None):
             raise NameError("Property 'targetDataSource' is required")
-        }
 
     def getConnection():
         return obtainTargetDataSource().getConnection()

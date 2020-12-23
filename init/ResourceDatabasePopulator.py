@@ -17,22 +17,6 @@ class ResourceDatabasePopulator():
     def _assertContentsOfScriptArray(self, *argv):
         for arg in argv:
             assert arg is not None, "'scripts' must not be null"
-    # def setSqlScriptEncoding(self, sqlScriptEncoding: str):
-    #     pass
-    # def setSeperator(self, seperator: str):
-    #     pass
-    # def setCommentPrefix(self, setCommentPrefix: str):
-    #     pass
-    # def setCommentPrefixs(self, setCommentPrefixs: str):
-    #     pass
-    # def setBlockCommentStartDelimiter(self, blockCommentStartDelimiter: str):
-    #     pass
-    # def setBlockCommentEndDelimiter(self, blockCommentEndDelimiter: str):
-    #     pass
-    # def setContinueOnError(self, continueOnError: bool):
-    #     pass
-    # def setIgnoreFailedDrops(self, ignoreFailedDrops: bool):
-    #     pass
     def populate(self, conn):
         assert conn is not None, "'connection' must not be null"
         cur = conn.cursor()
@@ -44,7 +28,3 @@ class ResourceDatabasePopulator():
     def execute(self, datasource):
         conn = datasource.getConnection()
         self.populate(conn)
-
-    
-
-     

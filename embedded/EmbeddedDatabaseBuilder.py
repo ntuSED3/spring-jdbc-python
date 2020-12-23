@@ -18,6 +18,7 @@ class EmbeddedDatabaseBuilder():
         return self
     
     def build(self):
+        self.databasePopulator.execute(self.databaseFactory.getDatabase())
         return self.databaseFactory.getDatabase()
     
     def addScript(self, script: str):
@@ -28,7 +29,3 @@ class EmbeddedDatabaseBuilder():
         for arg in argv:
             self.addScript(arg)
         return self
-
-
-
-

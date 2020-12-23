@@ -6,10 +6,7 @@ from init.ResourceDatabasePopulator import ResourceDatabasePopulator
 
 if __name__ == "__main__":
     builder = EmbeddedDatabaseBuilder()
-    populator = ResourceDatabasePopulator("test.sql", "test2.sql")
-    builder.setType(EmbeddedDatabaseType.H2)
-    ds = builder.build() 
-    populator.execute(ds)
+    ds = builder.setType(EmbeddedDatabaseType.H2).addScripts("test.sql", "test2.sql").build()
 
 #     cur.execute("""DROP TABLE IF EXISTS customers;""")
 #     cur.execute("""CREATE TABLE customers(id INT, first_name VARCHAR(255), last_name VARCHAR(255));""")

@@ -6,7 +6,7 @@ from init.ResourceDatabasePopulator import ResourceDatabasePopulator
 
 if __name__ == "__main__":
     builder = EmbeddedDatabaseBuilder()
-    populator = ResourceDatabasePopulator("test.sql")
+    populator = ResourceDatabasePopulator("test.sql", "test2.sql")
     builder.setType(EmbeddedDatabaseType.H2)
     ds = builder.build() 
     populator.execute(ds)

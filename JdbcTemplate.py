@@ -25,7 +25,8 @@ class JdbcTemplate(JdbcAccessor):
             # from original JdbcTemplate
             # Release Connection early, to avoid potential connection pool deadlock
 			# in the case when the exception translator hasn't been initialized yet.
-            con.close()
+            if closeResources:
+                con.close()
             #TODO: exception translation
         finally:
             if closeResources:

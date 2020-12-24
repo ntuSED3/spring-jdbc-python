@@ -20,4 +20,4 @@ class H2Configurer(EmbeddedDatabaseConfigurer):
     def configure(self, cp, databaseName):
         cp.setJClassName("org.h2.Driver")
         cp.setUrl("jdbc:h2:mem:{};DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=false".format(databaseName))
-        cp.setJarPath("embedded/jar/h2-1.4.200.jar")
+        cp.setJarPath("database/embedded/jar/h2-1.4.200.jar")

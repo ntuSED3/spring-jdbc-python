@@ -1,4 +1,4 @@
-from UserCredentialsDataSourceAdapter import UserCredentialsDataSourceAdapter
+from database.datasource.UserCredentialsDataSourceAdapter import UserCredentialsDataSourceAdapter
 
 import threading
 import time

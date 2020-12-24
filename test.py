@@ -1,10 +1,10 @@
-from JdbcTemplate import JdbcTemplate
-from DataSource import DataSource
-from LazyConnectionDataSourceProxy import LazyConnectionDataSourceProxy
+from database.core.JdbcTemplate import JdbcTemplate
+from database.datasource.DataSource import DataSource
+from database.datasource.LazyConnectionDataSourceProxy import LazyConnectionDataSourceProxy
 import sqlite3
-from embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
-from embedded.EmbeddedDatabaseType import EmbeddedDatabaseType
-from UserCredentialsDataSourceAdapter import UserCredentialsDataSourceAdapter
+from database.embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
+from database.embedded.EmbeddedDatabaseType import EmbeddedDatabaseType
+from database.datasource.UserCredentialsDataSourceAdapter import UserCredentialsDataSourceAdapter
 
 class SqliteDataSource(DataSource):
       def getConnection(self, username=None, password=None):

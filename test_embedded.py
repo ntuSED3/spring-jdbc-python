@@ -1,8 +1,8 @@
 import pandas as pd
-from embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
-from embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
-from embedded.EmbeddedDatabaseType import EmbeddedDatabaseType
-from init.ResourceDatabasePopulator import ResourceDatabasePopulator
+from database.embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
+from database.embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
+from database.embedded.EmbeddedDatabaseType import EmbeddedDatabaseType
+from database.embedded.init.ResourceDatabasePopulator import ResourceDatabasePopulator
 
 if __name__ == "__main__":
     builder = EmbeddedDatabaseBuilder()

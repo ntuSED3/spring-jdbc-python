@@ -1,4 +1,4 @@
-from DelegatingDataSource import DelegatingDataSource
+from .DelegatingDataSource import DelegatingDataSource
 class LazyConnectionDataSourceProxy(DelegatingDataSource):
    def __init__(self, targetDataSource = None):
       if targetDataSource != None:

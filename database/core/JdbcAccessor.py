@@ -1,4 +1,4 @@
-from DataSource import DataSource
+from ..datasource.DataSource import DataSource
 class JdbcAccessor:
     def __init__(self):
         self.dataSource = None

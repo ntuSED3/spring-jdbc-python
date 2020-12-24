@@ -1,5 +1,5 @@
 import abc
-from DataSource import DataSource
+from .DataSource import DataSource
 
 
 class AbstractDriverBasedDataSource(DataSource):

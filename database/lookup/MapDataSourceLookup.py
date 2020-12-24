@@ -1,4 +1,4 @@
-from DataSourceLookup import DataSourceLookup
+from .DataSourceLookup import DataSourceLookup
 
 class MapDataSourceLookup(DataSourceLookup):
     def __init__(self,dataSources=None,dataSourceName=None,dataSource=None):

@@ -1,5 +1,5 @@
-from embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
-from init.ResourceDatabasePopulator import ResourceDatabasePopulator
+from .EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
+from .init.ResourceDatabasePopulator import ResourceDatabasePopulator
 class EmbeddedDatabaseBuilder():
     def __init__(self):
         self.databaseFactory = EmbeddedDatabaseFactory()

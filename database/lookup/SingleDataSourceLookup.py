@@ -1,5 +1,4 @@
-
-from DataSourceLookup import DataSourceLookup
+from .DataSourceLookup import DataSourceLookup
 
 class SingleDataSourceLookup(DataSourceLookup):
     def __init__(self,dataSource=None):

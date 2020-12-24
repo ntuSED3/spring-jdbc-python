@@ -1,8 +1,8 @@
-from MapDataSourceLookup import MapDataSourceLookup
-from SingleDataSourceLookup import SingleDataSourceLookup
-from DataSource import DataSource
+from database.lookup.MapDataSourceLookup import MapDataSourceLookup
+from database.lookup.SingleDataSourceLookup import SingleDataSourceLookup
+from database.datasource.DataSource import DataSource
 import sqlite3
-from AbstractRoutingDataSource import AbstractRoutingDataSource
+from database.datasource.AbstractRoutingDataSource import AbstractRoutingDataSource
 class DataSource_1(DataSource):
     def getConnection(self, username=None, password=None):
             return sqlite3.connect("test.db")

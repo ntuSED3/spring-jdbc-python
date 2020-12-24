@@ -1,5 +1,5 @@
-from JdbcAccessor import JdbcAccessor
-from DataSource import DataSource
+from .JdbcAccessor import JdbcAccessor
+from ..datasource.DataSource import DataSource
 # interface
 # Maybe we should use abc.ABCMeta and abc.abstractmethod to prevent us from instantiating this class
 class StatementCallback:

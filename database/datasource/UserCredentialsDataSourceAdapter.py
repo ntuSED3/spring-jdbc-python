@@ -1,4 +1,4 @@
-from DelegatingDataSource import DelegatingDataSource
+from .DelegatingDataSource import DelegatingDataSource
 
 import threading
 

@@ -1,4 +1,4 @@
-from DataSource import DataSource
+from .DataSource import DataSource
 
 class DelegatingDataSource(DataSource):
     _targetDataSource = None

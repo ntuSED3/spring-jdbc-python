@@ -1,5 +1,5 @@
 import jaydebeapi
-from AbstractDriverBasedDataSource import AbstractDriverBasedDataSource
+from ..datasource.AbstractDriverBasedDataSource import AbstractDriverBasedDataSource
 
 class JaydebeDataSource(AbstractDriverBasedDataSource):
     """	

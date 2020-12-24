@@ -67,7 +67,7 @@ class JdbcTemplate(JdbcAccessor):
                 cursor = conn.cursor()
                 cursor.execute(sql)
                 conn.commit()
-                return self.cursor.rowcount
+                return cursor.rowcount
             def getSql(self) -> str:
                 return sql
         return self._execute(UpdateStatementCallback(), closeResource)

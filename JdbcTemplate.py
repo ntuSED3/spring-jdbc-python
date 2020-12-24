@@ -40,7 +40,7 @@ class JdbcTemplate(JdbcAccessor):
                 cursor.execute(sql)
                 conn.commit()
                 #return [row for row in cursor]
-                return cursor.fetchall()
+                # return cursor.fetchall()
 
             def getSql(self):
                 return sql

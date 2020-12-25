@@ -1,7 +1,7 @@
 import threading
-from .EmbeddedDatabaseConfigurer import EmbeddedDatabaseConfigurer
+from .AbstractDatabaseConfigurer import AbstractDatabaseConfigurer
 
-class HsqlConfigurer(EmbeddedDatabaseConfigurer):
+class HsqlConfigurer(AbstractDatabaseConfigurer):
     __instance = None
     @staticmethod
     def getInstance():
@@ -20,5 +20,4 @@ class HsqlConfigurer(EmbeddedDatabaseConfigurer):
     def configure(self, cp, databaseName):
         cp.setJClassName("org.hsqldb.jdbc.JDBCDriver")
         cp.setUrl("jdbc:hsqldb:mem:{}".format(databaseName))
-        cp.setJarPath("database/embedded/jar/hsqldb.jar")
         

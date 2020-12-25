@@ -1,7 +1,7 @@
 import threading
-from .EmbeddedDatabaseConfigurer import EmbeddedDatabaseConfigurer
+from .AbstractDatabaseConfigurer import AbstractDatabaseConfigurer
 
-class DerbyConfigurer(EmbeddedDatabaseConfigurer):
+class DerbyConfigurer(AbstractDatabaseConfigurer):
     __instance = None
     @staticmethod
     def getInstance():
@@ -20,4 +20,3 @@ class DerbyConfigurer(EmbeddedDatabaseConfigurer):
     def configure(self, cp, databaseName):
         cp.setJClassName("org.apache.derby.jdbc.EmbeddedDriver")
         cp.setUrl("jdbc:derby:memory:{};create=true".format(databaseName))
-        cp.setJarPath("database/embedded/jar/derby.jar")

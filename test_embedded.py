@@ -1,16 +1,32 @@
-import pandas as pd
-from database.embedded.EmbeddedDatabaseFactory import EmbeddedDatabaseFactory
+from database.core.JdbcTemplate import JdbcTemplate
 from database.embedded.EmbeddedDatabaseBuilder import EmbeddedDatabaseBuilder
 from database.embedded.EmbeddedDatabaseType import EmbeddedDatabaseType
-from database.embedded.init.ResourceDatabasePopulator import ResourceDatabasePopulator
 
-if __name__ == "__main__":
-    builder = EmbeddedDatabaseBuilder()
-    ds = builder.setType(EmbeddedDatabaseType.H2).addScripts("test.sql", "test2.sql").build()
+print('=====test builder/H2=====')
+builder = EmbeddedDatabaseBuilder()
+h2_ds = builder.\
+    setType(EmbeddedDatabaseType.H2).\
+    addScript("test.sql").\
+    addScript("test2.sql").\
+    generateUniqueName(True).\
+    build()
+jdbcTemplate = JdbcTemplate(h2_ds)
+print(jdbcTemplate.query("SELECT * FROM customers;"))
+print('=====end=====\n')
 
-    conn = ds.getConnection()
-    cur = conn.cursor()
-    cur.execute("""SELECT * FROM customers;""")
-    records = cur.fetchall()
-    df = pd.DataFrame(records)
-    print(df)
+print('=====test Derby======')
+derby_ds = builder.setType(EmbeddedDatabaseType.DERBY).build()
+jdbcTemplate.SetDataSource(derby_ds)
+jdbcTemplate.execute('''
+    CREATE TABLE SEDGROUP(
+    ID      INT         PRIMARY KEY,
+    NAME    VARCHAR(12));
+    ''')
+jdbcTemplate.execute('''
+INSERT INTO SEDGROUP VALUES (3, 'Group3');
+''')
+jdbcTemplate.update('''
+UPDATE SEDGROUP set NAME = 'BEST TEAM' where ID=3;
+''')
+print(jdbcTemplate.query("SELECT * FROM SEDGROUP;"))
+print('=====end=====\n')

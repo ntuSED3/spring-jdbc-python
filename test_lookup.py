@@ -1,38 +1,26 @@
+from database.datasource.DataSource import DataSource
+from database.datasource.AbstractRoutingDataSource import AbstractRoutingDataSource
 from database.lookup.MapDataSourceLookup import MapDataSourceLookup
 from database.lookup.SingleDataSourceLookup import SingleDataSourceLookup
-from database.datasource.DataSource import DataSource
 import sqlite3
-from database.datasource.AbstractRoutingDataSource import AbstractRoutingDataSource
-class DataSource_1(DataSource):
-    def getConnection(self, username=None, password=None):
-            return sqlite3.connect("test.db")
 
-class DataSource_2(DataSource):
-    def getConnection(self, username=None, password=None):
-            return sqlite3.connect("test.db")
-
-class DataSource_3(DataSource):
-    def getConnection(self, username=None, password=None):
+class SqliteDataSource(DataSource):
+      def getConnection(self, username=None, password=None):
             return sqlite3.connect("test.db")
 
 
-name1 = "d1"
-name2 = "d2"
-name3 = "d3"
+name1, name2, name3 = "d1", "d2", "d3"
+DS1, DS2, DS3 = SqliteDataSource(), SqliteDataSource(), SqliteDataSource()
+dictDS = {"d1" : DS1,"d2" : DS2,"d3" : DS3}
 
 print("Test SingleDataSourceLookup") 
 print("#######")
-DS1 = DataSource_1()
-DS2 = DataSource_2()
-DS3 = DataSource_3()
 singleDS = SingleDataSourceLookup(DS1)
 assert singleDS.getDataSource("") == DS1 , "SingleDataSourceLookup getDataSource error"
 
 
-
 print("Test MapDataSourceLookup")
 print("#######") 
-dictDS = {name1 : DS1,name2 : DS2,name3 : DS3}
 
 mapDS = MapDataSourceLookup()
 mapDS.setDataSources(dictDS)

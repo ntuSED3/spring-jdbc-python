@@ -14,9 +14,6 @@ class JaydebeDataSourceFactory(DataSourceFactory):
             def setUrl(self, url):
                 self.ds.setUrl(url)		
             
-            def setJarPath(self, jarpath):
-                self.ds.setJarPath(jarpath)	
-            
             def setJClassName(self, name):
                 self.ds.setJClassName(name)
 

@@ -1,5 +1,5 @@
 import jaydebeapi
-import threading
+import os
 from ..datasource.AbstractDriverBasedDataSource import AbstractDriverBasedDataSource
 
 class JaydebeDataSource(AbstractDriverBasedDataSource):
@@ -11,11 +11,7 @@ class JaydebeDataSource(AbstractDriverBasedDataSource):
     # because `jaydebeapi` needs all jars set at once for multiple connection calls
     # see: [jaydebeapi github issue #1](https://github.com/baztian/jaydebeapi/issues/1)
     #-----------------------------------------------------------------------------------
-    jar_list = [
-        "database/embedded/jar/h2-1.4.200.jar",
-        "database/embedded/jar/hsqldb.jar",
-        "database/embedded/jar/derby.jar",
-    ]
+    jar_list = [ os.path.join(os.path.dirname(__file__), 'jar', j) for j in os.listdir(os.path.join(os.path.dirname(__file__), 'jar')) if j[-3:] == "jar" ]
     def __init__(self):
         super().__init__()
         self.jclassname = None

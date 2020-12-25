@@ -24,6 +24,7 @@ class ResourceDatabasePopulator():
             with open(script, 'r') as sql_file:
                 for _, sql in enumerate(sql_file):
                     cur.execute(sql)
+        self.scripts = []
         conn.commit()
     def execute(self, datasource):
         conn = datasource.getConnection()

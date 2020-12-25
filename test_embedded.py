@@ -37,6 +37,6 @@ derby_ds = (builder
     .build()
 )
 jdbcTemplate.SetDataSource(derby_ds)
-print(jdbcTemplate.query("SELECT * FROM CUSTOMERS"))
+print(jdbcTemplate.query("SELECT * FROM customers"))
 derby_ds.shutdown()
 print('=====end=====\n')

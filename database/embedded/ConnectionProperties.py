@@ -2,9 +2,6 @@ class ConnectionProperties():
     def setUrl(self, url):
         raise NotImplementedError
     
-    def setJarPath(self, jarpath):
-        raise NotImplementedError
-    
     def setJClassName(self, name):
         raise NotImplementedError
 
